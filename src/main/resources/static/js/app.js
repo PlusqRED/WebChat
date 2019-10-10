@@ -10,7 +10,14 @@ function connect() {
         stompClient.subscribe('/topic/messages', function (message) {
             showMessage(JSON.parse(message.body));
         });
+        stompClient.subscribe("/topic/url", function (loadedData) {
+            showLoadedData(JSON.parse(loadedData.body))
+        });
     });
+}
+
+function showLoadedData(loadedData) {
+    $("#loadedData").append(loadedData.data);
 }
 
 function disconnect() {
@@ -31,6 +38,12 @@ function sendMessage() {
     }));
 }
 
+function sendUrl() {
+    stompClient.send("/app/url", {}, JSON.stringify({
+        'url': $("#url").val()
+    }))
+}
+
 function showMessage(message) {
     $("#conversation").append("<tr><td>" + message.countNumber
         + " " + message.name + " "
@@ -39,8 +52,12 @@ function showMessage(message) {
         + "</td></tr>");
 }
 
+//binding buttons
 $(function () {
     $("#sendButton").click(function () {
         sendMessage();
     });
+    $("#loadText").click(function () {
+        sendUrl();
+    })
 });
