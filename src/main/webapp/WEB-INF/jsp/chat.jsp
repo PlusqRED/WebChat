@@ -21,7 +21,11 @@
     <label for="messageContent" class="label label-default">Message:</label>
     <input type="text" id="messageContent">
     <button id="sendButton" class="btn btn-default">Send</button>
+    <label for="url">Url: </label>
+    <input type="text" id="url">
+    <button id="loadText" class="btn btn-default">Load from url</button>
 </div>
 <table class="table-hover table-striped" id="conversation"></table>
+<div id="loadedData"></div>
 </body>
 </html>
