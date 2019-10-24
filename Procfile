@@ -1,1 +1,1 @@
-web: java -jar target/ws-chat-1.0.war
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/ws-chat-1.0.war
