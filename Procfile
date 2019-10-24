@@ -1,0 +1,1 @@
+web: java -jar target/ws-chat-1.0.war
