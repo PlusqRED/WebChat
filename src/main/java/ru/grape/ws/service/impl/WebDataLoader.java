@@ -7,11 +7,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -35,18 +31,7 @@ public class WebDataLoader implements DataLoader {
                 e.printStackTrace();
             }
             dataProcessor.accept(appendLeftUrl(webUrl, data));
-        } else {
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(webUrl))
-                    .build();
-            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenApply(HttpResponse::body)
-                    .thenApply(data -> appendLeftUrl(webUrl, data))
-                    .thenAccept(dataProcessor)
-                    .join();
         }
-
     }
 
     private String printContent(HttpsURLConnection con) {
